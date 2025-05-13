@@ -1,5 +1,10 @@
 body {
     text-align: center;
+    a {
+        font-style: italic;
+        font-size: 0.9em;
+        color: rgb(5, 35, 91);
+    }
     form {
         button {
             margin-top: 20px;
@@ -17,15 +22,32 @@ body {
             }
         }
     }
+    p:first-child {
+            font-weight: 800;
+            margin-top: 10em;
+    }
+    p {
+        color: rgb(93, 93, 246);  
+        font-size: 1.2em;
+    }
     header {
+        margin-top: 2em;
         img {
             display: block;
             margin: auto;
         }
     }
     main {
-          h2, p {
+        h2 {
+            color: rgb(93, 93, 246);
+            font-size: 2em;
+            span {
+                text-transform: uppercase;
+            }
+        }
+        p {
             font-size: 1em;
+            font-style: italic;
         }
         p {
             margin-bottom: 3em;

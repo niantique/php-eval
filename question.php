@@ -21,6 +21,9 @@ $answer = isset($data[$number]) ? $data[$number]['choice'] : [];
 /** J'ai crée une fonction qui permet de récupérer la bonne réponse */
 $correct_answer = isset($data[$number]) ? $data[$number]['answer'] : '';
 
+$result = isset($_GET['result']) ? $_GET['result'] : null;
+$answer_given = isset($_GET['correct_answer']) ? $_GET['correct_answer'] : null;
+
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +39,10 @@ $correct_answer = isset($data[$number]) ? $data[$number]['answer'] : '';
 
 <p><?php echo $question; ?></p>
 
+
+
 <form method="post" action="process.php">
+    <input type="hidden" name="question_number" value="<?php echo $number; ?>">
             <?php foreach ($answer as $index => $choice) : ?>
                 <div>
                     <label>
@@ -45,8 +51,15 @@ $correct_answer = isset($data[$number]) ? $data[$number]['answer'] : '';
                     </label>
                 </div>
             <?php endforeach; ?>
-        <button type="submit">Valider</button>
+        <button type="submit">Valider la réponse</button>
 </form>
+
+<?php if ($result == 'correct') : ?>
+    <p>Bien joué !</p>
+<?php elseif ($result == 'incorrect') : ?>
+    <p>T'es nul !</p>
+    <p>La bonne réponse était: <?php echo ($answer_given); ?></p>
+<?php endif; ?>
 
 <?php if ($number < $total) : ?>
     <p><a href="question.php?n=<?php echo $number + 1; ?>">Question suivante</a></p>
