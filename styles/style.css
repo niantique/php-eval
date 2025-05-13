@@ -1,0 +1,48 @@
+body {
+    text-align: center;
+    form {
+        button {
+            margin-top: 20px;
+            background-color: rgb(93, 93, 246);  
+            padding: 10px 20px 10px 20px;
+            color: white;
+            border-radius: 5px;
+            font-size: 1.2em;
+            border: none;
+        }
+        div {
+            label:hover {
+                color: rgb(93, 93, 246);
+                font-weight: 800;
+            }
+        }
+    }
+    header {
+        img {
+            display: block;
+            margin: auto;
+        }
+    }
+    main {
+          h2, p {
+            font-size: 1em;
+        }
+        p {
+            margin-bottom: 3em;
+        }
+        a {
+            text-align: center;
+            text-decoration: none;   
+            background-color: rgb(93, 93, 246);  
+            padding: 10px 20px 10px 20px;
+            color: white;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+    }
+}
+
+/**
+* fonction qui blablabla
+
+*/
