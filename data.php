@@ -16,6 +16,11 @@ $data = [
         "choice" => ["Le pingouin vole, le manchot nage sans voler", "Les deux peuvent voler", "Le manchot vit au nord et le pingouin au sud"],
         "answer" => "Le pingouin vole, le manchot nage sans voler",
     ],
+      4 => [
+        "question" => "Qu'offre les pingouins pour faire la cour ?",
+        "choice" => ["Une boule de neige", "Un caillou", "Un poisson"],
+        "answer" => "Un caillou",
+    ],
 ]
 
 ?>

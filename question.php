@@ -2,27 +2,45 @@
 <?php session_start(); ?>
 <?php
 
-/** J'ai créé une fonction qui permet de récupérer le numéro de la question */
+/** J'ai créé une variable qui permet de récupérer le numéro de la question */
 
 $number = isset($_GET['n']) ? (int) $_GET['n'] : 1;
 
-/** J'ai créé une fonction qui permet d'obtenir le nombre total de questions */
+/** J'ai créé une variable qui permet d'obtenir le nombre total de questions */
 
 $total = count($data);
 
-/** J'ai créé une fonction qui récupère la question */
+/** J'ai créé une variable qui récupère la question */
 
 $question = isset($data[$number]) ? $data[$number]['question'] : 'pas de question correspondante au numéro';
 
-/** J'ai créé une fonction qui permet d'obtenir les réponses possibles */
+/** J'ai créé une variable qui permet d'obtenir les réponses possibles */
 
 $answer = isset($data[$number]) ? $data[$number]['choice'] : [];
 
-/** J'ai crée une fonction qui permet de récupérer la bonne réponse */
+/** J'ai crée une variable qui permet de récupérer la bonne réponse */
 $correct_answer = isset($data[$number]) ? $data[$number]['answer'] : '';
 
 $result = isset($_GET['result']) ? $_GET['result'] : null;
+
 $answer_given = isset($_GET['correct_answer']) ? $_GET['correct_answer'] : null;
+
+/** j'obtiens le tableau des résultats */
+if (!isset($_SESSION['results'])) {
+    $_SESSION['results'] = [];
+}
+
+/** je stocke le résultat */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['choice'])) {
+    $user_answer = $_POST['choice'];
+    $correct = ($user_answer === $correct_answer) ? 'correct' : 'incorrect';
+    $_SESSION['results'][$number] = $correct;
+
+header("Location: question.php?n=$number&result=$correct&correct_answer=" . urlencode($correct_answer));
+
+exit;
+}
+require __DIR__ . "/function.php";
 
 ?>
 
@@ -61,10 +79,19 @@ $answer_given = isset($_GET['correct_answer']) ? $_GET['correct_answer'] : null;
     <p>La bonne réponse était: <?php echo ($answer_given); ?></p>
 <?php endif; ?>
 
+
 <?php if ($number < $total) : ?>
     <p><a href="question.php?n=<?php echo $number + 1; ?>">Question suivante</a></p>
 <?php else : ?>
     <p><a href="index.php">Retourner à la page d'accueil</a></p>
+<?php endif; ?>
+
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && ($number <= $total)): ?>
+    <p>C'est la fin du quiz, bravo invocateur</p>
+    <p>Votre score est de <?php echo answerCount(); ?> / <?php echo $total; ?></p>
+    <?php session_destroy(); ?>
 <?php endif; ?>
 
 </body>
