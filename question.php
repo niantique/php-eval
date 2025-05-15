@@ -59,8 +59,6 @@ require __DIR__ . "/function.php";
 
     <p><?php echo $question; ?></p>
 
-
-
     <form method="post" action="question.php?n=<?php echo $number; ?>">
         <input type="hidden" name="question_number" value="<?php echo $number; ?>">
         <?php foreach ($answer as $index => $choice) : ?>
@@ -89,7 +87,6 @@ require __DIR__ . "/function.php";
             <p><a href="result.php">Voir ton super score</a></p>
         <?php endif; ?>
     <?php endif; ?>
-
 
 </body>
 
