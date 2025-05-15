@@ -10,7 +10,7 @@ function answerCount(): int {
 
     foreach ($_SESSION['results'] as $result) {
         if ($result == "correct") {
-            $score + 1;
+            $score += 1;
         }
     }
 

@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['choice'])) {
     $correct = ($user_answer === $correct_answer) ? 'correct' : 'incorrect';
     $_SESSION['results'][$number] = $correct;
 
-header("Location: question.php?n=$number&result=$correct&correct_answer=" . urlencode($correct_answer));
+    header("Location: question.php?n=$number&result=$correct&correct_answer=" . urlencode($correct_answer));
 
-exit;
+    exit;
 }
 require __DIR__ . "/function.php";
 
@@ -46,53 +46,51 @@ require __DIR__ . "/function.php";
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Pingouin Quiz</title>
 </head>
+
 <body>
 
-<h2>Question <?php echo $number; ?> sur <?php echo $total; ?></h2>
+    <h2>Question <?php echo $number; ?> sur <?php echo $total; ?></h2>
 
-<p><?php echo $question; ?></p>
+    <p><?php echo $question; ?></p>
 
 
 
-<form method="post" action="process.php">
-    <input type="hidden" name="question_number" value="<?php echo $number; ?>">
-            <?php foreach ($answer as $index => $choice) : ?>
-                <div>
-                    <label>
-                        <input type="radio" name="choice" value="<?php echo $choice; ?>" required>
-                        <?php echo htmlspecialchars($choice); ?>
-                    </label>
-                </div>
-            <?php endforeach; ?>
+    <form method="post" action="question.php?n=<?php echo $number; ?>">
+        <input type="hidden" name="question_number" value="<?php echo $number; ?>">
+        <?php foreach ($answer as $index => $choice) : ?>
+            <div>
+                <label>
+                    <input type="radio" name="choice" value="<?php echo $choice; ?>" required>
+                    <?php echo htmlspecialchars($choice); ?>
+                </label>
+            </div>
+        <?php endforeach; ?>
         <button type="submit">Valider la réponse</button>
-</form>
+    </form>
 
-<?php if ($result == 'correct') : ?>
-    <p>Bien joué !</p>
-<?php elseif ($result == 'incorrect') : ?>
-    <p>T'es nul !</p>
-    <p>La bonne réponse était: <?php echo ($answer_given); ?></p>
-<?php endif; ?>
-
-
-<?php if ($number < $total) : ?>
-    <p><a href="question.php?n=<?php echo $number + 1; ?>">Question suivante</a></p>
-<?php else : ?>
-    <p><a href="index.php">Retourner à la page d'accueil</a></p>
-<?php endif; ?>
+    <?php if ($result == 'correct') : ?>
+        <p>Bien joué !</p>
+    <?php elseif ($result == 'incorrect') : ?>
+        <p>T'es nul !</p>
+        <p>La bonne réponse était: <?php echo ($answer_given); ?></p>
+    <?php endif; ?>
 
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && ($number <= $total)): ?>
-    <p>C'est la fin du quiz, bravo invocateur</p>
-    <p>Votre score est de <?php echo answerCount(); ?> / <?php echo $total; ?></p>
-    <?php session_destroy(); ?>
-<?php endif; ?>
+    <?php if ($result !== null) : ?>
+        <?php if ($number < $total) : ?>
+            <p><a href="question.php?n=<?php echo $number + 1; ?>">Question suivante</a></p>
+        <?php else : ?>
+            <p><a href="result.php">Voir ton super score</a></p>
+        <?php endif; ?>
+    <?php endif; ?>
+
 
 </body>
+
 </html>

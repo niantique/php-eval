@@ -5,6 +5,15 @@ body {
         font-size: 0.9em;
         color: rgb(5, 35, 91);
     }
+    .return {
+            background-color: rgb(93, 93, 246);  
+            padding: 10px 20px 10px 20px;
+            color: white;
+            border-radius: 5px;
+            font-size: 1.2em;
+            border: none;
+            text-decoration: none;
+        }
     form {
         button {
             margin-top: 20px;
